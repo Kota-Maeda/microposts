@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -41,4 +42,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    // この投稿を所有するユーザ(Userモデルとの関係を定義)
+    public function microposts()
+    {
+        return $this->hasMany(Micropost::class);
+    }
+    
+    // このユーザに関係するモデルの件数をロードする
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount('microposts');
+    }
 }
