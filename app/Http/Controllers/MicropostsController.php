@@ -45,7 +45,7 @@ class MicropostsController extends Controller
     public function destroy($id)
     {
         // idの値で投稿と検索して取得
-        $micropost = \App\Models\Micropost::findOrFail($id);
+        $micropost = \rApp\Models\Micropost::findOrFail($id);
         
         // 認証済みユーザ(閲覧者)がその投稿の所有者である場合は投稿を削除
         if(\Auth::id() === $micropost->user_id){
