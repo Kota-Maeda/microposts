@@ -53,7 +53,7 @@ class UsersController extends Controller
         //フォロー一覧ビューでそれらを表示
         return view('users.followings',[
             'user' => $user,
-            'users' -> $followings,
+            'users' => $followings,
         ]);
     }
     

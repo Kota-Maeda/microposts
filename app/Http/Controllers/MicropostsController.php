@@ -15,7 +15,7 @@ class MicropostsController extends Controller
             // 認証済みユーザを取得
             $user = \Auth::user();
             // ユーザの投稿一覧を作成日時の降順で取得
-            $microposts = $user->microposts()->orderBy('created_at', 'desc')->paginate(10);
+            $microposts = $user->feed_microposts()->orderBy('created_at', 'desc')->paginate(10);
             $data = [
                 'user' => $user,
                 'microposts' => $microposts,
@@ -45,7 +45,7 @@ class MicropostsController extends Controller
     public function destroy($id)
     {
         // idの値で投稿と検索して取得
-        $micropost = \rApp\Models\Micropost::findOrFail($id);
+        $micropost = \App\Models\Micropost::findOrFail($id);
         
         // 認証済みユーザ(閲覧者)がその投稿の所有者である場合は投稿を削除
         if(\Auth::id() === $micropost->user_id){

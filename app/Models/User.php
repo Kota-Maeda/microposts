@@ -64,8 +64,9 @@ class User extends Authenticatable
     // このユーザがフォロー中のユーザ（Userモデルとの関係を定義
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'user_id')->withTimestapms();
+        return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'user_id')->withTimestamps();
     }
+
     
     // $userIdで指定されたユーザをフォローする
     public function follow($userId)
@@ -105,5 +106,15 @@ class User extends Authenticatable
     public function leadRelationshipCounts()
     {
         $this->loadCount(['microposts', 'followings', 'followers']);
+    }
+    
+    // このユーザとフォロー中のユーザの投稿に絞り込む
+    public function feed_microposts()
+    {
+        //このユーザがフォロー中のユーザのidを取得して配列にする
+        $userIds = $this->followings()->pluck('users.id')->toArray();
+        //このユーザのiddも配列に追加
+        //それらのユーザが所有する投稿に絞り込む
+        return Micropost::whereIn('user_id', $userIds);
     }
 }
