@@ -170,6 +170,15 @@ class User extends Authenticatable
     {
         $this->loadCount(['microposts', 'followings', 'followers', 'favoriting', 'favoritedBy']);
     }
+    
+    public function favorites()
+    {
+        //このユーザがフォロー中のユーザのidを取得して配列にする
+        $userIds = $this->favoriting()->pluck('users.id')->toArray();
+        //このユーザのidも配列に追加
+        //それらのユーザが所有する投稿に絞り込む
+        return Micropost::whereIn('user_id', $userIds);
+    }
     /*
     public function feed_favorites($userId)
     {

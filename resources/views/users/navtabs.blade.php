@@ -7,7 +7,7 @@
     {{-- フォロー一覧タブ --}}
     <a href="{{ route('users.followings', $user->id) }}" class="tab tab-lifted grow {{ Request::routeIs('users.followings') ? 'tab-active' : '' }}">
         Followings
-        <div class="badge ml-1">{{ $user->followings_count }}</div>
+        <div class="badge ml-1">{{ $user->followers_count }}</div>
     </a>
     {{-- フォロワー一覧タブ --}}
     <a href="{{ route('users.followers', $user->id) }}" class="tab tab-lifted grow {{ Request::routeIs('users.followers') ? 'tab-active' : '' }}">
@@ -15,7 +15,7 @@
         <div class="badge ml-1">{{ $user->followers_count }}</div>
     </a>
     {{--お気に入り一覧＾＾--}}
-    <a href="{{ route('users.favorites', $user->id) }}" class="tab tab-lifted grow {{ Request::routeIs('users.favorites_show') ? 'tab-active' : '' }}">
+    <a href="{{ route('users.favorites', $user->id) }}" class="tab tab-lifted grow {{ Request::routeIs('users.favorites') ? 'tab-active' : '' }}">
         お気に入り一覧＾＾
         <div class="badge ml-1">{{ $user->favoriting_count }}</div>
     </a>

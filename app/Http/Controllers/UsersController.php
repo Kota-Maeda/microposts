@@ -89,6 +89,7 @@ class UsersController extends Controller
         
         //お気に入り一覧ビューでそれらを表示
         return view('users.favorites_show', [
+            'user' => $user,
             'favorite' => $favorites,
         ]);
     }
