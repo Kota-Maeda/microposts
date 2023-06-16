@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Models\Micropost;
 
 class User extends Authenticatable
 {
@@ -103,18 +103,88 @@ class User extends Authenticatable
         return $this->followings()->where('follow_id', $userId)->exists();
     }
     
+    /*
     public function leadRelationshipCounts()
     {
         $this->loadCount(['microposts', 'followings', 'followers']);
     }
-    
+    */
     // このユーザとフォロー中のユーザの投稿に絞り込む
     public function feed_microposts()
     {
         //このユーザがフォロー中のユーザのidを取得して配列にする
         $userIds = $this->followings()->pluck('users.id')->toArray();
-        //このユーザのiddも配列に追加
+        //このユーザのidも配列に追加
         //それらのユーザが所有する投稿に絞り込む
         return Micropost::whereIn('user_id', $userIds);
     }
+    
+        
+    //このユーザがお気に入りにしている投稿
+    public function favoriting()
+    {
+        return $this->belongsToMany(Micropost::class, 'favorites', 'user_id', 'micropost_id')->withTimestamps();
+    }
+    
+    //この投稿をお気に入りにしているユーザ
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(Micropost::class, 'favorites', 'micropost_id', 'user_id')->withTimestamps();
+    }
+    
+    // $micropostIdで指定された投稿をお気に入りに追加する
+    public function favorite($micropostId)
+    {
+        $exist = $this->is_favoriting($micropostId);
+        //$its_me = $this->id == $micropostId;
+        
+        if($exist){
+            return false;
+        }else {
+            $this->favoriting()->attach($micropostId);
+            return true;
+        }
+    }
+    
+    // $micropostIdで指定された投稿をお気に入りから削除する
+    public function unfavorite($micropostId)
+    {
+        $exist = $this->is_favoriting($micropostId);
+        //$its_me = $this->id == $userId;
+        
+        if($exist){
+            $this->favoriting()->detach($micropostId);
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    // 指定された$micropostIdの投稿がユーザのお気に入りかどうか調べる　
+    public function is_favoriting($micropostId)
+    {
+        return $this->favoriting()->where('micropost_id', $micropostId)->exists();
+    }
+        
+    public function leadRelationshipCounts()
+    {
+        $this->loadCount(['microposts', 'followings', 'followers', 'favoriting', 'favoritedBy']);
+    }
+    /*
+    public function feed_favorites($userId)
+    {
+        
+        $userFavorites = $this->favoritings()->where('user_id', $userId)->toArray();
+        
+        return $userFavorites;
+    }
+    
+     // 指定された$micropostIdの投稿がユーザのお気に入りかどうか調べる　
+    public function is_favoriting($micropostId)
+    {
+        $userFavorites = feed_favorites($micropost);
+        return $this->favoriting()->where('micropost_id', $micropostId)->exists();
+    }
+    */
+    
 }
