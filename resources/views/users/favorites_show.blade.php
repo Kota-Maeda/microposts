@@ -8,10 +8,9 @@
         </aside>
         <div class="sm:col-span-2 mt-4">
             {{-- タブ --}}
-            @include('users.favorites')
+            @include('users.navtabs')
             <div class="mt-4">
-                {{-- ユーザ一覧 --}}
-                @include('users.users')
+                @include('users.favorites')
             </div>
         </div>
     </div>

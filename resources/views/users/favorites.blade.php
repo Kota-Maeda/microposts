@@ -1,3 +1,5 @@
+
+
 @if (isset($favorite))
     <ul class="list-none">
         @foreach ($favorite as $favorites)

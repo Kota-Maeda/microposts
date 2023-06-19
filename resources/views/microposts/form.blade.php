@@ -7,7 +7,7 @@
                 <textarea rows="2" name="content" class="input input-bordered w-full"></textarea>
             </div>
         
-            <button type="submit" class="btn btn-primary btn-block normal-case">Post</button>
+            <button type="submit" class="btn btn-primary btn-block normal-case background=green;">投稿</button>
         </form>
     </div>
 @endif
