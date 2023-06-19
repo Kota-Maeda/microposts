@@ -11,10 +11,8 @@
             @include('users.navtabs')
             {{-- 投稿一覧 --}}
             @include('microposts.microposts')
-        </div>
-    </div>
-    <div>
             {{-- 投稿フォーム --}}
             @include('microposts.form')
+        </div>
     </div>
 @endsection

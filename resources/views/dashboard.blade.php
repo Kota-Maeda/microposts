@@ -8,11 +8,12 @@
                 @include('users.card')
             </aside>
             <div class="sm:col-span-2">
-                {{-- 投稿フォーム --}}
-                @include('microposts.form')
                 {{-- 投稿一覧 --}}
                 @include('microposts.microposts')
+                {{-- 投稿フォーム --}}
+                @include('microposts.form')
             </div>
+            
         </div>
     @else
         <div class="prose hero bg-base-200 mx-auto max-w-full rounded">

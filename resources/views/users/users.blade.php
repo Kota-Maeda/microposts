@@ -10,11 +10,8 @@
                 </div>
                 <div>
                     <div>
-                        {{ $user->name }}
-                    </div>
-                    <div>
                         {{-- ユーザ詳細ページへのリンク --}}
-                        <p><a class="link link-hover text-info" href="{{ route('users.show', $user->id) }}">View profile</a></p>
+                        <p><a class="link link-hover text-info" href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a></p>
                     </div>
                 </div>
             </li>

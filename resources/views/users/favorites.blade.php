@@ -12,8 +12,11 @@
                 </div>
                 <div>
                     <div>
-                        <a>User name:</a>{{ $user->content }}
-                        {{ $user->name }} </p>
+                        <a class="link link-hover text-info" href="{{ route('users.show', $user->name) }}">{{ $user->name }}</a>
+                        <span class="text-muted text-gray-500">{{ $favorites->created_at }}に投稿されました</span>
+                        {{-- ユーザ詳細ページへのリンク --}}
+                    </div>
+                    <div>
                         {{ $favorites->content }}
                     </div>
                 </div>
