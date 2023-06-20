@@ -1,0 +1,2 @@
+
+<a>favoritedCount($id)</a>

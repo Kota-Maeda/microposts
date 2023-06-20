@@ -161,11 +161,6 @@ class User extends Authenticatable
     {
         return $this->favoriting()->where('micropost_id', $micropostId)->exists();
     }
-        
-    public function leadRelationshipCounts()
-    {
-        $this->loadCount(['microposts', 'followings', 'followers', 'favoriting', 'favoritedBy']);
-    }
     
     public function favorites()
     {
@@ -178,7 +173,7 @@ class User extends Authenticatable
     
     public function loadRelationshipCounts()
     {
-        $this->loadCount('microposts', 'favoriting', 'followers', 'followings');
+        $this->loadCount('microposts', 'favoriting', 'followers', 'followings', 'favoritedBy');
     }
     /*
     public function feed_favorites($userId)
