@@ -8,7 +8,6 @@
                     <td>　いまどうしてる？</td>
                 </tr>
             </table>
-            </form>
             <div class="form-control mt-4" style="padding: 10px;">
                 <textarea rows="5" name="content" class="input input-bordered" style="height:100px;"></textarea>
             </div>

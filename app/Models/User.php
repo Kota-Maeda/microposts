@@ -111,6 +111,7 @@ class User extends Authenticatable
         //このユーザがフォロー中のユーザのidを取得して配列にする
         $userIds = $this->followings()->pluck('users.id')->toArray();
         //このユーザのidも配列に追加
+        $userIds[] = $this->id;
         //それらのユーザが所有する投稿に絞り込む
         return Micropost::whereIn('user_id', $userIds);
     }
